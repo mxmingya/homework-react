@@ -1,13 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BasicTable from './components/BasicTable'
+import Form from './components/Form'
 
 ReactDOM.render(
-  <BasicTable show_airpolluted={false} />,
+  <Form />,
   document.getElementById('form1')
-);
-
-ReactDOM.render(
-  <BasicTable show_airpolluted={true} />,
-  document.getElementById('form2')
 );

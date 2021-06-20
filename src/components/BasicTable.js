@@ -24,10 +24,16 @@ class BasicTable extends React.Component {
   }
 
   async componentDidMount() {
-    await axios.get(`https://u50g7n0cbj.execute-api.us-east-1.amazonaws.com/v2/measurements?date_from=2000-01-01T00%3A00%3A00%2B00%3A00&date_to=2021-06-18T01%3A32%3A00%2B00%3A00&limit=100&page=1&offset=0&sort=desc&radius=1000&order_by=datetime`)
+    await axios.get(`https://u50g7n0cbj.execute-api.us-east-1.amazonaws.com/v2/measurements`,
+    {
+        // use default dates if props does not exist.
+        // TODO: validate the start_date and end_date
+        date_from: this.props.start_date + "T00:00:00+00:00" || "2000-01-01T00:00:00+00:00",
+        date_to:  this.props.end_date + "T00:00:00+00:00" || "2021-06-20T00:00:00+00:00",
+        limit: 50
+    })
       .then(res => {
         const response_array = res.data.results;
-        
         this.setState( { 
             locations: response_array, 
             // only keep the headers that we care about. 
@@ -64,7 +70,7 @@ class BasicTable extends React.Component {
   render() {
     return (
       <table>
-        <caption>{this.state.caption}</caption>
+        <caption>{ this.state.caption } </caption>
         <thead>
         <tr>
             { this.state.headers.map( header => <th> {header} </th> ) }

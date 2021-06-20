@@ -9,3 +9,9 @@ td, th {
     padding: 0.5rem;
     text-align: left;
 }
+
+.table caption{
+    border: inherit; 
+    background-color: lightgrey;
+    size: 20px;
+}
