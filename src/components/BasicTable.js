@@ -12,6 +12,7 @@ class BasicTable extends React.Component {
       polluted_locations: [],
       unpolluted_locations: [],
       showing_locations: [],
+      caption: "",
       wantedKeys: {
         'locationId': 'Id',
         'location': 'Address',
@@ -44,9 +45,15 @@ class BasicTable extends React.Component {
             }
         });
         if (this.props.show_airpolluted) {
-            this.setState({ showing_locations: this.state.polluted_locations})
+            this.setState({ 
+                showing_locations: this.state.polluted_locations,
+                caption: "Areas With Air Pollution"
+            })
         } else {
-            this.setState({ showing_locations: this.state.unpolluted_locations})
+            this.setState({ 
+                showing_locations: this.state.unpolluted_locations,
+                caption: "Areas With No Air Pollution"
+            })
         }
         // console.log(this.state.polluted_locations)        
       }).catch( e => {
@@ -57,6 +64,7 @@ class BasicTable extends React.Component {
   render() {
     return (
       <table>
+        <caption>{this.state.caption}</caption>
         <thead>
         <tr>
             { this.state.headers.map( header => <th> {header} </th> ) }
