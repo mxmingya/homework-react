@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import '../styles/tableStyle.css'
 
 class BasicTable extends React.Component {
   constructor(props) {
@@ -14,7 +15,6 @@ class BasicTable extends React.Component {
       wantedKeys: {
         'locationId': 'Id',
         'location': 'Address',
-        'isMobile': 'Mobility',
         'parameter': 'Parameter', 
         'unit': 'Unit',
         'value': 'Value'
@@ -67,7 +67,6 @@ class BasicTable extends React.Component {
             <tr>
                 <td key={location.locationId}> {location.locationId }</td>    
                 <td key={location.locationId + "_" + location.location}> {location.location }</td>    
-                <td key={location.locationId + "_" + location.isMobile}> {location.isMobile }</td>    
                 <td key={location.locationId + "_" + location.parameter}> {location.parameter }</td>    
                 <td key={location.locationId + "_" + location.unit}> {location.unit }</td>    
                 <td key={location.locationId + "_" + location.value}> {location.value }</td>    
