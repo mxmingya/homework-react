@@ -13,10 +13,12 @@ class Form extends React.Component {
     }
   
     handleStartdateChange(event) {
+        // TODO: Adding sanity check on the input
         this.setState({start_date: event.target.value});
     }
 
     handleEnddateChange(event) {
+        // TODO: Adding sanity check on the input
         this.setState({end_date: event.target.value});
     }
   
