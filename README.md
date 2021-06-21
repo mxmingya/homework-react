@@ -1,18 +1,19 @@
 ### How the app works: 
-#### click button with "Get Air Quality Report" to fetch data and display the proper data in the tables. 
-#### "Areas With Air Pollution" table contains communities that has µg/m^3 as unit and has an average reading of 5 or more. 
-#### "Areas With No Air pollution" table contains the rest of the communities that does not meet the above criteria. 
+ - in the unziped code directory, run npm install, then npm start. 
+ - click button with "Get Air Quality Report" to fetch data and display the proper data in the tables. 
+ - "Areas With Air Pollution" table contains communities that has µg/m^3 as unit and has an average reading of 5 or more. 
+ - "Areas With No Air pollution" table contains the rest of the communities that does not meet the above criteria. 
 
 ### TODO list if get more time: 
-### within 48 hours the app, I build some omponents with the basic of React framework. however with more time this app should: 
-#### - Comes with a data store with Redux, where most of shared data should be stored instead of states of a class. 
-#### - Comes with an API utils store which provides functions to make API calls to the endpoint. 
-#### - Better CSS styles. 
-#### - Component testings. 
-#### - Root div that acts as a parent div to all the components(Forms, Tables etc)
-#### - Refactor of Form components so that text input should be a reusable child component. 
-#### - provide link to google map for each of the coordinates. 
-#### - More functionalities of the table: sorting, filtering, etc..
+ within 48 hours the app, I build some omponents with the basic of React framework. however with more time this app should: 
+  - Comes with a data store with Redux, where most of shared data should be stored instead of states of a class. 
+  - Comes with an API utils store which provides functions to make API calls to the endpoint. 
+  - Better CSS styles. 
+  - Component testings. 
+  - Root div that acts as a parent div to all the components(Forms, Tables etc)
+  - Refactor of Form components so that text input should be a reusable child component. 
+  - provide link to google map for each of the coordinates. 
+  - More functionalities of the table: sorting, filtering, etc..
 
 ## Getting Started with Create React App
 
