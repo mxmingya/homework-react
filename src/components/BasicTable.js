@@ -6,7 +6,6 @@ import TableRow from './TableRow';
 class BasicTable extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props)
     this.state = {
       locations: [],
       headers: [],
@@ -31,13 +30,13 @@ class BasicTable extends React.Component {
     async componentDidMount() {
         await axios.get(`https://u50g7n0cbj.execute-api.us-east-1.amazonaws.com/v2/locations`,
             {
-                limit: this.props.limit || 100,
+                limit: 100,
                 page: 1,
                 offset: 0,
                 sort: this.props.sort || "desc",
                 radius: 1000, 
                 order_by: this.props.order_by || "lastUpdated", 
-                dumpRaw: this.props.dumpRaw || false
+                dumpRaw: false
             }
         ).then(
             res => {
@@ -64,14 +63,12 @@ class BasicTable extends React.Component {
                         location.average = location.parameters[0].average;
                         location.lastUpdated = location.parameters[0].lastUpdated;
                         location.unit = location.parameters[0].unit;
-                        location.parameter = location.parameter[0];
 
                         delete location.parameters;
                         this.setState({ unpolluted_locations: [...this.state.unpolluted_locations, location] })
                     }
                 });
-                console.log(this.state.polluted_locations[0])
-                // console.log(this.state.unpolluted_locations)
+                
                 if (this.props.show_airpolluted) {
                     this.setState({ 
                         showing_locations: this.state.polluted_locations,

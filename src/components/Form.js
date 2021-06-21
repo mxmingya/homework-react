@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react'
 import ReactDOM from 'react-dom';
 import BasicTable from './BasicTable'
@@ -6,30 +5,30 @@ import BasicTable from './BasicTable'
 class Form extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {start_date: '', end_date: ''};
+        this.state = {sorted_by: '', order_by: ''};
     
-        this.handleStartdateChange = this.handleStartdateChange.bind(this);
-        this.handleEnddateChange= this.handleEnddateChange.bind(this);
+        this.handleSortedByChange = this.handleSortedByChange.bind(this);
+        this.handleOrderByChange = this.handleOrderByChange .bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
   
-    handleStartdateChange(event) {
+    handleSortedByChange(event) {
         // TODO: Adding sanity check on the input
-        this.setState({start_date: event.target.value});
+        this.setState({sorted_by: event.target.value});
     }
 
-    handleEnddateChange(event) {
+    handleOrderByChange (event) {
         // TODO: Adding sanity check on the input
-        this.setState({end_date: event.target.value});
+        this.setState({order_by: event.target.value});
     }
   
     handleSubmit(event) {
         ReactDOM.render(
-            <BasicTable show_airpolluted={true} start_date={this.state.start_date} end_date={this.state.end_date} />,
+            <BasicTable show_airpolluted={true} sorted_by={this.state.sorted_by} order_by={this.state.order_by} />,
             document.getElementById('table2')
           );
           ReactDOM.render(
-            <BasicTable show_airpolluted={false} start_date={this.state.start_date} end_date={this.state.end_date} />,
+            <BasicTable show_airpolluted={false} sorted_by={this.state.sorted_by} order_by={this.state.order_by} />,
             document.getElementById('table1')
           );
       event.preventDefault();
@@ -40,16 +39,16 @@ class Form extends React.Component {
       return (
         <form onSubmit={this.handleSubmit}>
           <label>
-            start date:
-            <input type="text" placeholder="2000-01-01" value={this.state.start_date} onChange={this.handleStartdateChange} />
+            sort:
+            <input type="text" placeholder="desc or asc" value={this.state.sorted_by} onChange={this.handleSortedByChange} />
           </label>
           <br></br>
           <label>
-            end date: 
-            <input type="text" placeholder="2021-06-20" value={this.state.end_date} onChange={this.handleEnddateChange} />
+            order by: 
+            <input type="text" placeholder="lastUpdated or firstUpdated" value={this.state.order_by} onChange={this.handleOrderByChange } />
           </label>
           <br></br>
-          <input type="submit" value="Get Air Quality Report by Date" />
+          <input type="submit" value="Get Air Quality Report" />
         </form>
       );
     }

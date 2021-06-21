@@ -1,3 +1,19 @@
+# How the app works: 
+## click button with "Get Air Quality Report" to fetch data and display the required data in the tables. 
+## Areas With Air Pollution table contains communities that has µg/m^3 as unit and has an average reading of 5 or more. 
+## Areas With No Air pollution table contains the rest of the communities that does not meet the above criteria. 
+
+# TODO list if get more time: 
+## within 48 hours the app I am able to learn the basic of React framework and build some components. however with more time this app should: 
+## - Comes with a data store with Redux, where most of shared data should be stored instead of states of a class. 
+## - Comes with an API utils store which contains functions to make API calls to the endpoint. 
+## - Better CSS styles. 
+## - Component testings. 
+## - Root div that acts as a parent div to all the components(Forms, Tables etc)
+## - Refactor of Form components so that text input should be a reusable child component. 
+## - provide link to google map for each of the coordinates. 
+## - More functionalities of the table: sorting, filtering, etc..
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -38,33 +54,3 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

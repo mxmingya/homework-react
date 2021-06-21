@@ -6,13 +6,16 @@ import Form from './components/Form';
 // // unmount and cleanup DOM after the test is finished.
 // afterEach(cleanup);
 
-it('Form renders', () => {
+it("Form renders", () => {
   const {queryByLabelText, getByLabelText} = render(<Form />);
 
-  expect(queryByLabelText(/start date:/i)).toBeTruthy();
-  expect(queryByLabelText(/end date:/i)).toBeTruthy();
-
-  fireEvent.change(queryByPlaceholderText("2000-01-01"));
-
-//   expect(queryByLabelText(/on/i)).toBeTruthy();
+  expect(queryByLabelText(/sort/i)).toBeTruthy();
+  expect(queryByLabelText(/order by/i)).toBeTruthy();
 });
+
+it("Form input value changes", () => {
+  const {queryByLabelText, getByLabelText} = render(<Form />);
+  
+  fireEvent.change(queryByLabelText("sort:"), {target: {value: "test_string"}});
+  expect(queryByLabelText("sort:").value).toBe("test_string");
+})
