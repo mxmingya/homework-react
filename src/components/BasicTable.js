@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import '../styles/tableStyle.css'
+import TableRow from './TableRow';
 
 class BasicTable extends React.Component {
   constructor(props) {
@@ -14,58 +15,77 @@ class BasicTable extends React.Component {
       showing_locations: [],
       caption: "",
       wantedKeys: {
-        'locationId': 'Id',
-        'location': 'Address',
+        'id': 'Id',
+        'name': 'Name',
+        'coordinates': 'Corrdinates',
+        'country': 'Country',
+        'entity': "Entity",
+        'lastUpdated': 'lastUpdated',
         'parameter': 'Parameter', 
         'unit': 'Unit',
-        'value': 'Value'
+        'average': 'average'
       }
     };
   }
 
-  async componentDidMount() {
-    await axios.get(`https://u50g7n0cbj.execute-api.us-east-1.amazonaws.com/v2/measurements`,
-    {
-        // use default dates if props does not exist.
-        // TODO: validate the start_date and end_date
-        date_from: this.props.start_date + "T00:00:00+00:00" || "2000-01-01T00:00:00+00:00",
-        date_to:  this.props.end_date + "T00:00:00+00:00" || "2021-06-20T00:00:00+00:00",
-        limit: 50
-    })
-      .then(res => {
-        const response_array = res.data.results;
-        this.setState( { 
-            locations: response_array, 
-            // only keep the headers that we care about. 
-            headers: response_array != null && response_array.length > 0 
-            ? Object.keys(response_array[0]).filter(k => k in this.state.wantedKeys) 
-            : [] });
-        
-        this.state.locations.forEach(location => {
-            if (location.unit === "µg/m³" && location.value >= 5) {
-                this.setState({
-                    polluted_locations: [...this.state.polluted_locations, location]})
-            } else {
-                this.setState({
-                    unpolluted_locations: [...this.state.unpolluted_locations, location]})
+    async componentDidMount() {
+        await axios.get(`https://u50g7n0cbj.execute-api.us-east-1.amazonaws.com/v2/locations`,
+            {
+                limit: this.props.limit || 100,
+                page: 1,
+                offset: 0,
+                sort: this.props.sort || "desc",
+                radius: 1000, 
+                order_by: this.props.order_by || "lastUpdated", 
+                dumpRaw: this.props.dumpRaw || false
             }
-        });
-        if (this.props.show_airpolluted) {
-            this.setState({ 
-                showing_locations: this.state.polluted_locations,
-                caption: "Areas With Air Pollution"
-            })
-        } else {
-            this.setState({ 
-                showing_locations: this.state.unpolluted_locations,
-                caption: "Areas With No Air Pollution"
-            })
-        }
-        // console.log(this.state.polluted_locations)        
-      }).catch( e => {
-        console.log(e);
-      })
-  }
+        ).then(
+            res => {
+                const response_array = res.data.results;
+                this.setState( { 
+                    locations: response_array, 
+                    // only keep the headers that we care about. 
+                    headers: Object.keys(this.state.wantedKeys)});
+                
+                this.state.locations.forEach(location => {
+                    const coordinate = location.coordinates.latitude + " " + location.coordinates.longitude;
+                    location.coordinates = coordinate;
+
+                    const parameter_array = location.parameters.filter( p => "µg/m³" && p.average >= 5);
+                    if (parameter_array.length > 0) {
+                        location.parameter = parameter_array[0].parameter;
+                        location.average = parameter_array[0].average;
+                        location.lastUpdated = parameter_array[0].lastUpdated;
+                        location.unit = parameter_array[0].unit;
+                        delete location.parameters;
+                        this.setState({ polluted_locations: [...this.state.polluted_locations, location] })
+                    } else {
+                        location.parameter = location.parameters[0].parameter;
+                        location.average = location.parameters[0].average;
+                        location.lastUpdated = location.parameters[0].lastUpdated;
+                        location.unit = location.parameters[0].unit;
+                        location.parameter = location.parameter[0];
+
+                        delete location.parameters;
+                        this.setState({ unpolluted_locations: [...this.state.unpolluted_locations, location] })
+                    }
+                });
+                console.log(this.state.polluted_locations[0])
+                // console.log(this.state.unpolluted_locations)
+                if (this.props.show_airpolluted) {
+                    this.setState({ 
+                        showing_locations: this.state.polluted_locations,
+                        caption: "Areas With Air Pollution"
+                })} 
+                else {
+                    this.setState({ 
+                        showing_locations: this.state.unpolluted_locations,
+                        caption: "Areas With No Air Pollution"
+                })
+            }
+            }
+        )
+    }
 
   render() {
     return (
@@ -77,15 +97,7 @@ class BasicTable extends React.Component {
         </tr>
         </thead>
         <tbody>
-          { this.state.showing_locations.map(location => 
-            <tr>
-                <td key={location.locationId}> {location.locationId }</td>    
-                <td key={location.locationId + "_" + location.location}> {location.location }</td>    
-                <td key={location.locationId + "_" + location.parameter}> {location.parameter }</td>    
-                <td key={location.locationId + "_" + location.unit}> {location.unit }</td>    
-                <td key={location.locationId + "_" + location.value}> {location.value }</td>    
-            </tr>
-          ) } 
+          { this.state.showing_locations.map(location => <TableRow wantedKeys={this.state.wantedKeys} location={location} />) } 
         </tbody>
       </table>
     )

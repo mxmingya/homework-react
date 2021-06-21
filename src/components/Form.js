@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react'
 import ReactDOM from 'react-dom';
 import BasicTable from './BasicTable'
@@ -35,19 +36,20 @@ class Form extends React.Component {
     }
   
     render() {
+    // TODO: make a text input component to reduce the code repeabilities. 
       return (
         <form onSubmit={this.handleSubmit}>
           <label>
-            start date: (example, 2021-06-08) 
-            <input type="text" value={this.state.start_date} onChange={this.handleStartdateChange} />
+            start date:
+            <input type="text" placeholder="2000-01-01" value={this.state.start_date} onChange={this.handleStartdateChange} />
           </label>
           <br></br>
           <label>
-            end date: (example, 2021-06-20) 
-            <input type="text" value={this.state.end_date} onChange={this.handleEnddateChange} />
+            end date: 
+            <input type="text" placeholder="2021-06-20" value={this.state.end_date} onChange={this.handleEnddateChange} />
           </label>
           <br></br>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Get Air Quality Report by Date" />
         </form>
       );
     }
