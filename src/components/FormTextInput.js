@@ -4,25 +4,11 @@ class FormTextInput extends React.Component {
     constructor(props) {
       super(props);
       // placeholder: {}
-      // location: {} 
+      // value: {} 
     }
 
     render() {
-        const location = this.props.location;
-        return (
-            <tr>
-                {
-                    Object.keys(this.props.wantedKeys).map(
-                        // `location.id + " " + k` keeps the key unique
-                        k => <td key={location.id + " " + k}> {location[k]} </td>)
-                }
-            </tr>
-           
-            
-        )
     }
-
-
 }
 
-export default TableRow;
+export default FormTextInput;
