@@ -16,13 +16,9 @@ class TableRow extends React.Component {
                         // `location.id + " " + k` keeps the key unique
                         k => <td key={location.id + " " + k}> {location[k]} </td>)
                 }
-            </tr>
-           
-            
+            </tr>         
         )
     }
-
-
 }
 
 export default TableRow;

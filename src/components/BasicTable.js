@@ -94,7 +94,7 @@ class BasicTable extends React.Component {
         </tr>
         </thead>
         <tbody>
-          { this.state.showing_locations.map(location => <TableRow wantedKeys={this.state.wantedKeys} location={location} />) } 
+          { this.state.showing_locations.map(location => <TableRow testID="table-row" wantedKeys={this.state.wantedKeys} location={location} />) } 
         </tbody>
       </table>
     )
